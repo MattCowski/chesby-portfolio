@@ -1,0 +1,127 @@
+.jumbotron
+  video-bg(video-id="'iNJdPyoqt8U'", ratio="16/9", mobile-image="",  ng-if="vidBG")
+  //video-bg(video-id="'iNJdPyoqt8U'", ratio="4/3", loop="false", mute="true", mobile-image="'/img/background-img.png'", start="30", end="120", content-z-index="500", allow-click-events="true")
+  .container
+    h1 JavaScript Web Development
+    p A demonstration of a static site and modules built with AngularJS by 
+      a(href="http://mattcowski.github.io/") @MattCowski
+    
+    
+
+.container
+  .panel.panel-default
+    .panel-body
+      p This website was created and is maintained on a 
+        a(href="https://nodejs.org/en/") NodeJS 
+        | backend and uses the 
+        a(href="http://gulpjs.com") GulpJS task runner
+        |  for minification, live reloading, compression, etc.
+  .panel.panel-default
+    .panel-body
+      p In production, the website is a fully static site served through an AWS bucket. It uses Firebase for data persistance and authentication.
+      p Optional API enpoints are implemented for email sending and other services. 
+      
+      
+  p.lead Each module has a preview below or by clicking in the nav above.
+  h2 Video Background
+  p For example of such module, a full width video can be automatically loaded here.
+  button.btn.btn-primary(ng-click="vidBG = !vidBG") toggle video background
+  h2 Transloader
+  p This is an uploader that can upload any type of file. It can upload the original file to AWS but I chose to use Transloadit (SaaS) which allows me to create thumbnails, cropped or other edits.
+  p Include this directive with 
+    code 'file-picker-modal'
+  p Live demo:
+  file-picker-modal(ng-if="user")
+  button.btn.disabled(ng-if="!user") sign in to use modal
+  span.label firebase
+  //file-uploader
+  hr
+  h2 Authentication
+  p For auth I trust using Firebase (a BaaS or PaaS, recently bought out by Google), we don't have to worry about as many security issues. This module is accessible at all pages from within the nav. A user can register OR login from the same menu. Registration options:
+  ul
+    li email
+    li facebook
+    li google
+    li SMS (two factor auth)
+    li github
+    li annonymous
+  span(ng-show="user.auth") 
+    | Thanks for logging in! You are {{user.name}} {{user.displayName}} {{user.uid}} 
+    a(ng-click="auth.unauth()") Logout
+
+  button.btn.btn-default(ng-click="auth.popup()",ng-if="!user") Log in or register in one action!
+  p If logged in, the data returned from FB is:
+  pre {{user}}
+  
+
+  hr
+  h2 AWS Lambda Key Permissions
+  a(href="http://docs.aws.amazon.com/lambda/latest/dg/welcome.html" target="new") What is AWS Lambda?
+  p Set which authed users get to retrieve keys for AWS Lambda services (mini node module services)
+  
+  .panel.panel-default
+    .panel-heading 
+      b Key Management:
+    .panel-body
+      code Start typing key to edit:
+      input(ng-model="newAWSLambdaKey")
+      input(ng-model="AWSLambda[newAWSLambdaKey]")
+      button.btn.btn-danger(ng-show="AWSLambda[newAWSLambdaKey]", ng-click="delete(newAWSLambdaKey)") Delete
+
+      pre {{AWSLambda}}
+
+      //button.btn.btn-primary(ng-disabled="newAWSLambdaKey == ''", ng-hide="AWSLambda[newAWSLambdaKey]", ng-click="AWSLambda[newAWSLambdaKey] = '<secretAccessKey>'; newAWSLambdaKey = '';") Add new
+  
+
+  .panel.panel-default
+    .panel-heading 
+      b User Permissions:
+    .panel-body
+      input(ng-model="newUser")
+      button.btn.btn-primary(ng-disabled="newUser == ''", ng-hide="AWSLambdaPermissions[newUser]", ng-click="AWSLambdaPermissions[newUser] = {}; newUser = '';") Add new
+      button.btn.btn-danger(ng-show="AWSLambdaPermissions[newUser]", ng-click="deleteUser(newUser)") Delete
+
+      table.table
+        tr
+          th user
+        tr(ng-repeat="(user, key) in AWSLambdaPermissions")
+          td {{user}}
+          td(ng-repeat="(accessKeyId, secretAccessKey) in AWSLambda")
+            button.btn.btn-success(ng-show="AWSLambdaPermissions[user][accessKeyId]", ng-click="AWSLambdaPermissions[user][accessKeyId] = !AWSLambdaPermissions[user][accessKeyId]") {{accessKeyId}} ON
+            button.btn.btn-danger(ng-hide="AWSLambdaPermissions[user][accessKeyId]", ng-click="AWSLambdaPermissions[user][accessKeyId] = !AWSLambdaPermissions[user][accessKeyId]") {{accessKeyId}} OFF
+      pre {{AWSLambdaPermissions | json}}
+
+
+  //-.hide
+    hr
+    h2 Nodemailer
+    button.btn.btn-default(ng-click="sendEmail()") Send test email
+
+    hr
+    h2 Twilio SMS
+    button.btn.btn-default(ng-click="sendSMS({to:'+12246398453',from:'+18474570194',body:'testttt'})") Send test message
+  
+  hr
+  h2 FAQ
+  a(href="#/faq") see the faq module
+
+  hr
+  h2 Messages
+  p Sign in for best results
+    button.btn(bs-aside="aside", data-animation="am-slide-left", template="messages/aside.html", container="body") Open chat aside
+    button.btn(bs-modal="modal") Open chat modal
+
+  hr
+  
+  h1 This site is FAST
+  h2 Optimized for the Google Speed Test
+  progressbar(value="56", type="warning") 56%
+  progressbar(value="73", type="success") 73%
+  
+  p on 6/30/2015: mobile: 61; desktop: 74 (python serving /public)
+  p on 7/1/2015: mobile: 84; desktop: 91 (chesby.com w/ compression, css below fold )
+
+  a(href="https://developers.google.com/speed/pagespeed/insights/?url=http%3A%2F%2Fnode-js-100773.nitrousapp.com%3A4000%2F%23%2F&tab=mobile") speed = 56(mobile) 73(desktop)
+  hr
+
+ 

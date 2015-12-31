@@ -1,0 +1,51 @@
+
+
+<div >
+  <h3>Calendar date appointment request</h3>
+  <div class="cal-date-container">
+    <div ng-hide="v.available == false" class="cal-date-item" ng-class="getClass(k)" ng-repeat="(k, v) in calDates">
+      <div ng-click="toggleSelect(k)">{{moment(k).format('MMM')}} 
+        <div class="cal-date"> {{moment(k).format('DD ddd')}} </div>
+      </div>
+      <select  ng-disabled="v.available == false" ng-show="selectedKey == k" ng-model="v.time" ng-options="currOption for currOption in timeSlots">
+        <option value="">Pick Timeslot</option>
+      </select>
+      
+        <p>w/ modifier: ${{percent = price * (v.modifier / 100) || 0}} </p>
+        <p>Total: ${{price + percent || 0}}  </p>
+
+    </div>
+  </div>
+  
+  
+  
+  <button class="btn btn-primary" ng-disabled="calDates[selectedKey] == undefined" ng-click="requestAppointment()">Save date</button>
+  <p>Apply incremental discount after a week?</p>
+  <button class="btn btn-primary" ng-click="incrementalDiscount = true">Apply</button>
+  <h3>Admin calendar management and approval</h3>
+  <div class="cal-date-container">
+    <div class="cal-date-item" ng-class="getClass(k)" ng-repeat="(k, v) in bookings">
+      <div ng-click="toggleSelect(k)">{{moment(k).format('MMM')}} 
+        <div class="cal-date"> {{moment(k).format('DD ddd')}} </div>
+      </div>
+
+      <select ng-show="selectedKey == k" ng-model="v.available" ng-options="currOption for currOption in [true, false]">
+                <option value="">Available?</option>
+
+      </select>
+      
+      <div ng-show="selectedKey == k"> 
+        <button class="btn btn-primary btn-sm" ng-click="v.available = false">Book w/ {{v.uid}}</button>
+        <button class="btn btn-danger btn-sm" ng-click="delete(k)">delete</button>
+
+        <div class="input-group input-group-sm">
+          <input class="form-control" ng-model="v.modifier">
+          <span class="input-group-addon">% price modifier</span>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+    <pre>Selected date: {{moment(selectedKey).format('MMM DD ddd')}} @ {{bookings[selectedKey].time}} </pre>
+
+</div>

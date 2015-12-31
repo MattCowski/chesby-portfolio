@@ -1,0 +1,58 @@
+.modal(tabindex='-1', role='dialog')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', ng-click='$hide()') ×
+        //- h4.modal-title(ng-bind-html='title')
+        h4.modal-title Files
+      .modal-body
+        file-uploader(opts="opts", on-selected='')
+        table.table
+          tbody
+            tr(ng-repeat="assembly in all | filter:search | orderBy:'name' ") 
+              td: a(href="{{assembly[':original']}}", target="_blank")
+                img.img-responsive.img-rounded(ng-src='{{assembly.thumb || assembly.pdfThumb || "http://transloaditkts.s3.amazonaws.com/fakefolder/:original/fb/6d4a0060dd11e49cbcfdd496f89509/fb6d4a0060dd11e49cbcfdd496f89509.gif"}}')
+
+              td(ng-hide="assembly.progress == 100")
+                progressbar(value="assembly.progress", type="success") {{assembly.progress}}%
+                b {{assembly.status}}
+
+                
+              td(ng-show="assembly.progress == 100")
+                //- button.btn.btn-info(ng-click="insert(assembly)") attach to message below
+                //- button.btn.btn-info(ng-click="select(assembly)") select assembly 
+                //- button.btn.btn-info(ng-click="selected.item = assembly; ok()") Attach to message
+                button.btn.btn-info(ng-click="onSelected(assembly); $hide()") Attach to message
+                #admin-ctrl(ng-if="profile.roleValue >= 20")
+                  a(href="{{assembly.cropped}}") open cropped  
+
+                  a(ng-click="all.$remove(assembly)") delete  
+                  a(ng-click="appendCrop($index)") append cropped 
+                  a(ng-click="appendThumb($index)") append thumb
+        //- h4 Text in a modal
+        //- p(ng-bind-html='content')
+        //- pre.
+        //-   \n2 + 3 = {{ 2 + 3 }}          
+        //- h4 Popover in a modal
+        //- p
+        //-   | This
+        //-   a.btn.btn-default.popover-test(role='button', data-title='A Title', data-content='And here\"s some amazing content. It\"s very engaging. right?', bs-popover='') button
+        //-   | should trigger a popover on click.
+        //- h4 Tooltips in a modal
+        //- p
+        //-   a.tooltip-test(href='#', data-title='Tooltip', bs-tooltip='') This link
+        //-   | and
+        //-   a.tooltip-test(href='#', data-title='Tooltip', bs-tooltip='') that link
+        //-   | should have tooltips on hover.
+      .modal-footer
+        button.btn.btn-default(type='button', ng-click='$hide()') Close
+        button.btn.btn-primary(type='button', ng-click='$hide()') Save changes
+
+
+
+
+        
+ //-      .modal-footer
+ //-        //- button.btn.btn-primary(ng-click="ok()") OK
+ //-        button.btn.btn-warning(ng-click="cancel()") Cancel
+ //- 

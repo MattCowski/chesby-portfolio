@@ -1,0 +1,18 @@
+.profile
+  h1 Profile
+  p Edit your information 
+  span(ng-show="user.auth") 
+  | Hello {{user.name}} {{user.displayName}} | {{user.uid}} 
+  a(ng-click="auth.unauth()") Logout
+
+  button.btn.btn-default(ng-click="auth.popup()",ng-if="!user") log in
+  p User info is:
+  pre {{user}}
+  strong Sign in with
+  ul
+    li email
+    li facebook
+    li google
+    li SMS (two factor auth)
+    li github
+    li annonymous

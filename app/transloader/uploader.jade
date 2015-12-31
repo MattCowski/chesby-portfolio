@@ -1,0 +1,20 @@
+
+form
+  .form-group
+    span.btn.btn-primary.btn-file Choose Files
+      input(type='file', ng-file-select="addFromUpload($files)", multiple='true', accept='image/*')
+
+  div.well(ng-file-drop="addFromUpload($files)", ng-file-drag-over-class='optional-css-class-name-or-function', ng-show='dropSupported') ... or drop files here
+  div(ng-file-drop-available='dropSupported=true', ng-show='!dropSupported') HTML5 Drop File is not supported!
+
+
+form
+  .form-group
+    label(for="url") Or upload from url
+    .input-group
+      div
+        input.form-control(type="text", placeholder='http:// (url to image)', title='Url', ng-model="urlinput")
+      span.input-group-btn
+        button.btn.btn-default(type="button", ng-click="addFromUrl(urlinput)") 
+          span.glyphicon.glyphicon-upload 
+          |   Upload

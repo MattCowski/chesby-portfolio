@@ -1,0 +1,16 @@
+.admin
+  //div(ng-controller="Shells as vm")
+    div(ng-repeat="user in vm.users")
+      pre {{user}}
+      impopup(messages="user.messages", username="user.username", submit-button-text="Send", title="Chat with {{user.username}}", submit-function="vm.sendMessage")
+  a(href="#/users") manage users
+  
+  
+  .config-keys
+    h3 Application Configuration Keys
+    pre {{appConfigKeys}}
+    code Edit key:
+    input(ng-model="appConfigKey")
+    input(ng-model="appConfigKeys[appConfigKey]")
+    button.btn.btn-danger(ng-show="appConfigKeys[appConfigKey]", ng-click="delete(appConfigKey)") Delete
+  

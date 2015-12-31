@@ -1,0 +1,37 @@
+h1 KTS Inc. Invoice
+
+table.table.table-hover
+  th {{project.address}}
+  th {{project.name}}
+  th {{project.phone}}
+  th {{project.phone}}
+  th {{project.newEvent}}
+
+table.table.table-hover
+  tr
+    th item
+    th description
+    th price
+    th amount
+    th(ng-if="user.profile.roleValue >= 20") use sf?
+    th total
+    th
+  tr(ng-repeat="(key, item) in cartItems track by $index")
+    td
+      b {{key}} 
+
+    td {{item.name}}
+      
+    td(ng-show='(profile.roleValue >= 20)'): input.form-control(ng-model="item.price")
+    //- td(ng-hide='(profile.roleValue >= 20)') ${{item.price}}
+    td: input.form-control(type="number",ng-model="item.price")
+    td: input.form-control(type="{{item.qty == 'sf' ? 'text' : 'number'}}",ng-model="item.qty")
+    td(ng-if="profile.roleValue >= 20"): input(type="checkbox", ng-checked="item.useSf", ng-model="item.useSf")
+    td {{itemtotal(item) | currency}}
+    td: a(ng-click="delete(key)") x
+h3: small: em sub-total {{cartTotal() | currency}}
+div(ng-repeat="modifier in project.modifiers")
+  p.text-danger {{modifier.name}} {{modifier.value}}
+h3: em {{project.newTotal || project.total | currency}}
+//- button.btn.btn-success(ng-show="cartItems.sf", ng-click="saveAsProject()") {{user ? '' : 'Register and'}} Save
+a.pull-right.btn.btn-success(ng-disabled="!user", ng-href="#/users/{{user.uid}}") Next: Update profile >>

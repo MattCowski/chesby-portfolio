@@ -1,0 +1,15 @@
+.invoices
+  h1 {{useruid}}'s Invoices
+  code /Invoices/{{useruid}}/
+  button.btn.btn-primary(ng-click="createNewInvoice()") Create a new invoice
+  button.btn.btn-primary(ng-click="forceCreateNewInvoice()") Force create
+  table.table
+    tr
+      th invoice key
+      th val
+      th permissions
+    tr(ng-repeat="(key, value) in Invoices")
+      td: a(href="#/invoice/{{key}}") {{key}} 
+      td {{value}}
+      td: a(href="#/permissions/{{key}}")
+  

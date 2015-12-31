@@ -1,0 +1,27 @@
+.row.chat-window.col-xs-5.col-md-3(ng-class='vm.theme', style='margin-left:10px;')
+    .col-xs-12.col-md-12
+        .panel
+          .panel-heading.chat-top-bar( ng-click='vm.toggle()')
+            .col-md-8.col-xs-8
+              h3.panel-title
+                span.glyphicon.glyphicon-comment
+                |  {{vm.title}}
+            
+            .col-md-4.col-xs-4(style='text-align: right;')
+              span.glyphicon(ng-class='vm.chatButtonClass')
+              //span.label.label-danger 11
+          
+          .panel-body.msg-container-base(ng-style='vm.panelStyle', scroll-glue='')
+            .row.msg-container(ng-repeat='message in vm.messages')
+              .col-md-12.col-xs-12
+                .chat-msg(ng-class="vm.username === message.username ? 'chat-msg-sent' : 'chat-msg-receive' ", chat-msg-sent)
+                  p {{message.content}}
+                  //strong.chat-msg-author {{message.username}}
+                  time {{vm.moment(message.timestamp).fromNow()}}
+                small {{vm.username === message.username ? 'you' : message.username}} • {{vm.moment(message.timestamp).fromNow()}}
+          .panel-footer(ng-style='vm.panelStyle')
+            form(style='display:inherit', ng-submit='vm.submitFunction()')
+              .input-group
+                input.form-control.input-sm.chat-input(type='text', placeholder='{{vm.inputPlaceholderText}}', ng-model='vm.writingMessage')
+                span.input-group-btn
+                  input.btn.btn-sm.chat-submit-button(type='submit', value='{{vm.submitButtonText}}')

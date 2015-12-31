@@ -1,0 +1,40 @@
+.invoice-module
+  h1 Invoice
+  pre {{Header}}
+  table.table
+    tr
+      th Name
+      th Address
+      th Project
+      th Total
+    tr
+      td: input(ng-model="Header.name")
+      td: input(ng-model="Header.address")
+      td: input(ng-model="Header.project")
+      td: input(ng-model="Header.total")
+      
+  code Edit key:
+  input(ng-model="newItem")
+
+  //input(ng-model="Invoice[newItem]")
+  button.btn.btn-primary(ng-disabled="newItem == ''", ng-hide="Invoice[newItem]", ng-click="Invoice[newItem] = {amount:1, price:0}; newItem = '';") Add new
+  button.btn.btn-danger(ng-show="Invoice[newItem]", ng-click="delete(newItem)") Delete
+  table.table
+    tr
+      th priority
+      th toggle on/off
+      th key
+      th amount
+      th price
+      th
+    tr(ng-repeat="(key, value) in Invoice")
+      td: input(ng-model="Invoice[key].priority")
+      td: button.btn.btn-xs(ng-class="Invoice[key].toggle ? 'btn-success': 'btn-default'", ng-click="Invoice[key].toggle = !Invoice[key].toggle") toggle
+      td: input(ng-model="key")
+      td: input(ng-model="Invoice[key].amount")
+      td: input(ng-model="Invoice[key].price")
+
+      td: button.btn.btn-xs.btn-danger(ng-click="deleteInvoiceItems(key)") x
+      
+  img(width="100%" src="https://agilescope.io/assets/Agilescope-Screenshot-1d27c0083019456b4a0587d6c72f0f2100fa5cee127a6abc5ba9127c4c492e6c.png")
+  

@@ -1,0 +1,18 @@
+.search
+  .input-group
+    .input-group-addon Search
+    input.form-control.input-lg(ng-model="search.$", type="search", placeholder="keywords i.e. 'floor' or 'grout'")
+
+  h2 Frequently Asked Questions
+  accordion(close-others='false')
+    accordion-group(ng-repeat='faq in filteredFaqs = (faqs | filter:search)', is-open='status.open')
+      accordion-heading
+        | {{faq.title}}
+        i.pull-right.glyphicon(ng-class='{"glyphicon-chevron-down": status.open, "glyphicon-chevron-right": !status.open}')
+      | {{faq.content}}
+      br
+      a.btn.btn-default.btn-xs(ng-repeat="tag in faq.tags", ng-href="#/faq?$={{tag}}") {{"#"+tag}}
+
+    accordion-group(heading="Can't find an answer?", ng-hide="filteredFaqs.length")
+      button.btn.btn-default.btn-sm(ng-click='addItem()') Call us
+      div(ng-repeat='item in items') {{item}}

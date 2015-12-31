@@ -1,0 +1,20 @@
+.message-user
+
+
+
+  pre {{instantmessages}}
+  ul
+    li(ng-repeat='message in instantmessages')
+      | {{message.content}}
+
+
+
+
+  div
+    div
+      form(ng-submit='instantmessages.$add({content:newMessage.content, username:"admin"})', novalidate)
+        fieldset.form-group
+          input.form-control(type="textarea", ng-model='newMessage.content', placeholder='...', title='Message')
+        fieldset.form-group
+          input.btn.btn-primary.pull-right(type='submit', value='Submit')
+        pre {{newMessage}}

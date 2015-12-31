@@ -1,0 +1,30 @@
+.message-user
+
+  h1 talk to {{phoneId}}
+  a(href="/#/edit/{{phoneId}}") edit
+  a.btn.btn-success(ng-click="call()") Call now
+  br
+  a.btn.btn-success(ng-click="call()") Call from client
+  br
+  a.btn.btn-warning(ng-click="call()") listen in
+
+  pre {{messages}}
+  ul
+    li(ng-repeat='message in messages')
+      | {{message.body}}
+      a(ng-if="message.url", href="{{message.url}}")   (play recording)
+      img(ng-if='message.MediaUrl0', ng-src="{{message.MediaUrl0}}")
+      img(ng-if='message.MediaUrl1', ng-src="{{message.MediaUrl1}}")
+      img(ng-if='message.MediaUrl2', ng-src="{{message.MediaUrl2}}")
+
+
+
+
+  div
+    div
+      form(ng-submit='messages.$add(newMessage)', novalidate)
+        fieldset.form-group
+          input.form-control(type="textarea", ng-model='newMessage.body', placeholder='...', title='Message')
+        fieldset.form-group
+          input.btn.btn-primary.pull-right(type='submit', value='Submit')
+        pre {{newMessage}}

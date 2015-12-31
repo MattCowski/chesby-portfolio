@@ -1,0 +1,11 @@
+.edit-user
+  h1 edit {{phoneId}}
+  a(href="/#/talk/{{phoneId}}") talk
+
+  form(ng-submit="saveContact(contact)")
+    fieldset.form-group
+      input.form-control(ng-model='contact.name', type='text', placeholder='name', title='name')
+      input.form-control(ng-model='contact.email', type='email', placeholder='email', title='name', required='required')
+      input.form-control(ng-model='contact.note', type='text', placeholder='note', title='message', required='required')
+      button.btn.btn-primary(type="submit") Save
+

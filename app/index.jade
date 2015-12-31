@@ -1,0 +1,66 @@
+doctype html
+html(lang="en")
+
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width")
+    title Chesby
+    style.
+      .blue{color:blue;}
+    //link(media="lazy", id="app-css", href="app.css" rel="stylesheet")
+    
+  body(ng-app="angular")
+
+    div(ng-if="false")
+      h1 Loading the application
+      div.sk-spinner.sk-spinner-wave
+        div.sk-rect1
+        div.sk-rect2
+        div.sk-rect3
+        div.sk-rect4
+        div.sk-rect5
+    div(ng-include="'nav.html'")
+    div(ng-view="")
+    div.hidden-xs(ng-controller="Shell as vm")
+      impopup(messages="vm.messages", username="vm.username", input-placeholder-text="You can write here", submit-button-text="Send", title="Live Chat", theme="material", submit-function="vm.sendMessage", open="vm.toggle")
+    
+    script(defer src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js")
+    script(defer src="http://code.angularjs.org/1.2.14/angular-route.min.js")
+    script(defer src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.min.js")
+    script(defer src="//cdn.firebase.com/js/client/2.0.4/firebase.js")
+    script(defer src="//cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js")
+    script(defer data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js")
+    //<link media="lazy" rel="stylesheet" href="//mgcrea.github.io/angular-strap/styles/libraries.min.css">
+    
+    //<link media="lazy" rel="stylesheet" href="//cdn.jsdelivr.net/fontawesome/4.3.0/css/font-awesome.css">
+    <link media="lazy" id="app-css" rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap/3.3.4/css/bootstrap.min.css">
+    //<link rel="stylesheet" href="//mgcrea.github.io/angular-strap/styles/docs.min.css">
+    <script defer src="//cdn.jsdelivr.net/angularjs/1.2.14/angular-animate.min.js" data-semver="1.2.14"></script>
+    <script defer src="//cdn.jsdelivr.net/angularjs/1.2.14/angular-sanitize.min.js" data-semver="1.2.14"></script>
+    <script defer src="//mgcrea.github.io/angular-strap/dist/angular-strap.min.js" data-semver="v2.2.3"></script>
+    <script defer src="//mgcrea.github.io/angular-strap/dist/angular-strap.tpl.min.js" data-semver="v2.2.3"></script>
+    <script defer src="//mgcrea.github.io/angular-strap/docs/angular-strap.docs.tpl.js" data-semver="v2.2.3"></script>
+    <script defer src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
+    <script defer data-require="angular-video-bg@0.2.3" data-semver="0.2.3" src="https://rawgit.com/kanzelm3/angular-video-bg/master/angular-video-bg.min.js"></script>
+    
+    
+    
+    script(defer, src="lib.min.js")
+    script(defer, src="templates.min.js")
+    script(defer, src="app.min.js")
+    script(defer, src="https://sdk.amazonaws.com/js/aws-sdk-2.1.28.min.js")
+    script(defer).
+      var cb = function() {
+        document.getElementById('app-css').media = 'screen';
+
+        var l = document.createElement('link'); l.rel = 'stylesheet';
+        var ll = document.createElement('link'); ll.rel = 'stylesheet';
+
+        l.href = 'app.css';
+        ll.href = '//mgcrea.github.io/angular-strap/styles/libs.min.css';
+
+        var h = document.getElementsByTagName('head')[0]; h.parentNode.appendChild(l);h.parentNode.appendChild(ll);
+      };
+      var raf = requestAnimationFrame || mozRequestAnimationFrame || webkitRequestAnimationFrame || msRequestAnimationFrame;
+      if (raf) raf(cb);
+      else window.addEventListener('load', cb);

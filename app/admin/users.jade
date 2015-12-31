@@ -1,0 +1,26 @@
+.users
+  h1 Users
+  input(ng-model="newUser")
+  input(ng-model="Users[newUser]")
+  button.btn.btn-danger(ng-show="Users[newUser]", ng-click="delete(newUser)") Delete
+  
+  table.table
+    tr
+      th user
+      th val
+    tr(ng-repeat="(user, val) in Users")
+      td: a(ng-click="makePhoneId(user)") {{user}}
+      td {{val}}
+      td: a(href="#/user/{{user}}") edit / profile
+      td: a(href="#/user/{{user}}/invoices") invoices
+      td: a(href="#/user/{{user}}/bookings") bookings
+      td: a(href="#/user/{{user}}/im") im
+      td: a(href="#/user/{{user}}/talk") talk
+      
+
+  
+  
+  
+  input(ng-model="newUser")
+  button.btn.btn-primary(ng-disabled="newUser == ''", ng-hide="Users[newUser]", ng-click="Users[newUser] = {}; newUser = '';") Add new
+  button.btn.btn-danger(ng-show="Users[newUser]", ng-click="delete(newUser)") Delete
